@@ -20,8 +20,7 @@ public class Main {
 
         List<Map.Entry<Character, Integer>> m = new ArrayList<>(map.entrySet());
         m.sort((entry1, entry2) -> {
-            int descVal = entry2.getValue().compareTo(entry1.getValue());
-            return descVal;
+            return entry2.getValue().compareTo(entry1.getValue());
         });
 
         if(m.size() > 1 && m.get(0).getValue().equals(m.get(1).getValue())) {
