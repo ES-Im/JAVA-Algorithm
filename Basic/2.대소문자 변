@@ -1,0 +1,68 @@
+import java.util.Scanner;
+// 방법1 : 배열 사용 + 아스키 코드 값 이용
+public class Main1 {
+    public char[] solution(String str) {
+        char[] arr = str.toCharArray();
+        for (int i = 0; i < arr.length; i++) {
+            char c = arr[i];
+            arr[i] = ((c >= 97) ? (char) (c - 32) : (char) (c + 32));
+        }
+        return arr;
+    }
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String input1 = sc.next();
+        if(input1.length() >= 100) return;
+
+        System.out.println(t.solution(input1));
+    }
+}
+
+// 방법2 : "" 공백 사용 + 아스키 코드 값 이용
+public class Main2 {
+    public String solution(String str) {
+        String result = "";
+        for (char c : str.toCharArray()) {
+            if(c>=97) {
+                result += (char)(c - 32);
+            } else {
+                result += (char)(c + 32);
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String input1 = sc.next();
+        if(input1.length() >= 100) return;
+
+        System.out.println(t.solution(input1));
+    }
+}
+
+// 방법3 : Character 클래스의 is--Case 메서드 활용
+public class Main3 {
+    public String solution(String str) {
+        String result = "";
+        for (char c : str.toCharArray()) {
+           if(Character.isLowerCase(c)) {
+               result += Character.toUpperCase(c);
+           } else {
+               result += Character.toLowerCase(c);
+           }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String input1 = sc.next();
+        if(input1.length() >= 100) return;
+
+        System.out.println(t.solution(input1));
+    }
+}
