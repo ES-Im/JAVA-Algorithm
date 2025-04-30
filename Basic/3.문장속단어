@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+
+public class Main {
+// 방법1. split 이용
+    public String solution1(String str) {
+        String[] arr = str.split(" ");
+        String result = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            result = (result.length() >= arr[i].length())? result : arr[i];
+        }
+        return result;
+    }
+
+// 방법2. split + INTEGER.MIN_VALUE 사용
+    public String solution2(String str) {
+        String result = "";
+        int m = Integer.MIN_VALUE;   // 가장 작은 숫자로 초기화
+        String[] s = str.split(" ");
+
+        for (String c : s) {
+            int len = c.length();
+            if(len > m) {
+                m = len;
+                result = c;
+            }
+        }
+        return result;
+    }
+
+// 방법3. indexOf, substring 이용
+    public String solution3(String str) {
+        String result = "";
+        int m = Integer.MIN_VALUE, pos;
+        
+        while((pos = str.indexOf(' ')) != -1) {   // 첫번째 " " 인덱스번호로 초기화
+            String tmp = str.substring(0, pos);   // 첫번째 단어 추출
+            int len = tmp.length();  
+            if(len >= m) {
+                m = len;
+                result = tmp;
+            }
+            str = str.substring(pos+1);  // 문장 중 pos + " " 길이만큼 빼기
+        }
+
+        if(str.length() > m) result = str;  // 마지막 단어까지 비교
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        if(input1.length() >= 100) return;
+
+        System.out.println(t.solution1(input));
+    }
+}
+
