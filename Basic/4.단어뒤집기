@@ -1,0 +1,73 @@
+// 투포인터 방식 : 셔플시, 반복문의 인덱스를 직접사용하는 것과 시간복잡도는 동일하지만, 가시성 확장성(복잡한 조건에서 사용가능) 측면에서 유리 
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+   public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if(n < 3 || n > 20) return;
+        String[] str = new String[n];
+        for (int i = 0; i < n; i++) {
+            str[i]=sc.next();
+        }
+
+        for (String s : t.solution1(str)) {
+            System.out.println(s);
+        }
+    }
+
+    // (1) 가변 객체 성질을 위하여  StringBuilder 객체 이용 후 toString으로 불변객체로 전환 (메모리 낭비 감소)
+    public ArrayList<String> solution1(String[] str) {
+        ArrayList<String> result = new ArrayList<>();
+        for (String s : str) {
+            String tmp = new StringBuilder(s).reverse().toString();
+            result.add(tmp);
+        }
+        return result;
+    }
+
+    // (2) 인덱스를 직접적으로 사용
+    public ArrayList<String> solution2(String[] str) {
+        ArrayList<String> answer = new ArrayList<>();
+
+        for (String s : str) {
+            char[] x = s.toCharArray();
+            for (int i = 0; i < x.length/2; i++) {
+                char tmp = x[i];
+                x[i] = x[x.length-1-i];
+                x[x.length-1-i] = tmp;
+            }
+
+            answer.add(String.valueOf(x));
+        }
+
+        return answer;
+    }
+
+    // (3) ☆ 투포인터 방식
+    public ArrayList<String> solution3(String[] str) {
+        ArrayList<String> answer = new ArrayList<>();
+
+        for (String s : str) {
+            char[] x = s.toCharArray();
+            int lt = 0, rt = x.length-1;
+            while(lt < rt) {
+                char tmp = x[lt];
+                x[lt] = x[rt];
+                x[rt] = tmp;
+                lt++;
+                rt--;
+            }
+
+            answer.add(String.valueOf(x));
+        }
+
+        return answer;
+    }
+
+   
+}
