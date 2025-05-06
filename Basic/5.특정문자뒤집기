@@ -1,0 +1,31 @@
+// 투포인터 사용 및 Char 배열 → String 으로 변환시 String.valueof() 메서드 활용
+
+import java.util.Scanner;
+
+public class Main {
+    public String solution(String str) {
+        char[] answer = str.toCharArray();
+        int lt = 0, rt = str.length() - 1;
+        while(lt < rt) {
+            if(!Character.isAlphabetic(answer[lt])) lt++;
+            else if (!Character.isAlphabetic(answer[rt])) rt--;
+            else {
+                char tmp = answer[lt];
+                answer[lt] = answer[rt];
+                answer[rt] = tmp;
+                lt++;
+                rt--;
+            }
+        }
+
+        return String.valueOf(answer);  
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        if(str.length() > 100) return;
+        System.out.println(t.solution(str));
+    }
+}
