@@ -1,0 +1,66 @@
+// indexOf가 왼쪽부터 탐색, 처음으로 만나는 위치를 리턴하는 것을 이용하여 쉽게 중복 문자를 탐색할 수 있다. 
+// 문자열.indexOf(문자열.charAt(3)) 의 리턴값이 1이라면 인덱스 1과 3에 같은 문자가 있는 것 
+// 이를 이용하여 중복문자탐색 가능
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Main {
+
+    // 1. LinkedHashSet 이용 : Set 자료구조 중 LinkedList 결합
+    public String solution1(String str) {
+        StringBuilder answer = new StringBuilder();
+        LinkedHashSet<Character> set = new LinkedHashSet<>();
+        for (char c : str.toCharArray()) {
+            set.add(c);
+        }
+
+        for (Character c : set) {
+            answer.append(c);
+        }
+
+        return answer.toString();
+    }
+
+    // 2. loop : 이용
+    public String solution2(String str) {
+        ArrayList<Character> arr = new ArrayList<>();
+        arr.add(str.charAt(0));
+
+        loop :
+        for (int i = 1; i < str.length(); i++) {
+            for (char c : arr) {
+                if(str.charAt(i) == c) continue loop;
+            }
+            arr.add(str.charAt(i));
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (char c : arr) {
+            result.append(c);
+        }
+        return result.toString();
+    }
+
+    // 3. indexOf가 왼쪽부터 탐색, 처음으로 만나는 위치를 리턴하는 것을 이용.
+    public String solution3(String str) {
+        StringBuilder answer = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            if(str.indexOf(str.charAt(i))==i) {
+                answer.append(str.charAt(i));
+            }
+        }
+
+        return answer.toString();
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        if(str.length() > 100) return;
+        System.out.println(t.solution(str));
+    }
+}
