@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class Main {
+    // replaceAll(☆ 정규식,치환문자)로 알파벳 제외한 모든 문자를 제거할 수 있다.
+    // "[a-z]" : a부터 z까지
+    // "[^a-z]" : a부터 z까지를 제외
+    public String solution1(String str) {
+        str = str.toLowerCase().replaceAll("[^a-z]","");
+        String tmp = new StringBuilder(str).reverse().toString();
+        if(str.equals(tmp)) return "YES";
+        return "NO";
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        if(str.length() > 100) return;
+        System.out.println(t.solution1(str));
+    }
+}
