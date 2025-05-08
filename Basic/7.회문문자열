@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class Main {
+    // 1. 투포인터 이용
+    public String solution1(String str) {
+        String answer = "NO";
+        char[] arr = str.toLowerCase().toCharArray();
+        int lt = 0; int rt = arr.length-1;
+        while(lt < rt) {
+            if(!(arr[lt] == arr[rt])) break;
+            lt++;
+            rt--;
+        }
+        if(lt >= rt) answer = "YES";
+
+        return answer;
+    }
+
+    // 2. 다른 단어를 만나는 순간 NO 리턴 및 반복문은 길이/2 만 도는 것을 이용
+    public String solution2(String str) {
+        str = str.toLowerCase();
+        int len = str.length();
+        for (int i = 0; i < len / 2; i++) {
+            if (str.charAt(i) != str.charAt(len - i - 1)) return "NO";
+        }
+        return "YES";
+    }
+
+    // 3. StringBuilder의 reverse 메서드 이용
+    public String solution3(String str) {
+        String tmp = new StringBuilder(str).reverse().toString();
+        if(str.equalsIgnoreCase(tmp)) return "YES";
+        return "NO";
+    }
+    
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        if(str.length() > 100) return;
+        System.out.println(t.solution1(str));
+    }
+}
