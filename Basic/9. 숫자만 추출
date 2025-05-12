@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+  // 1. 정규식으로 숫자 아닌 것은 ""으로 치환
+    public Integer solution1(String str) {
+        str = str.replaceAll("[^0-9]","");
+        return Integer.parseInt(str);
+    }
+  // 2.숫자 ASCII 코드가 48 ~ 57 까지mport java.util.Scanner;
+
+public class Main {
+  // 1. 정규식으로 숫자 아닌 것은 ""으로 치환
+    public Integer solution1(String str) {
+        str = str.replaceAll("[^0-9]","");
+        return Integer.parseInt(str);
+    }
+  // 2.숫자 ASCII 코드가 48 ~ 57 까지임을 이용
+    public Integer solution2(String str) {
+        char[] arr= str.toCharArray();
+        Integer result = 0;
+        for (char c : arr) {
+            if(c>=48 && c< 58) {
+                result = result * 10 + (c - 48);
+            }
+        }
+        return result;
+    }
+  // 3. isDigit 메서드 이용
+    public Integer solution3(String str) {
+        String result = "";
+        for (char c : str.toCharArray()) {
+            if(Character.isDigit(c)) {
+                result += c;
+            }
+        }
+        return Integer.parseInt(result);
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        if(str.length() > 100) return;
+        System.out.println(t.solution1(str));
+    }
+}
