@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+    // 1. 이차원 배열 이용(i = 단어 수, j = 각 단어 내 인덱스)
+    public String solution1(int quantity, String str) {
+        StringBuilder result = new StringBuilder();
+        char[] arr = str.toCharArray();
+        for (int i = 0; i < quantity; i++) {
+            int ascii = 0;
+            for (int j = 0; j < 7; j++) {
+                if(arr[7*i+j] == '#') {
+                    ascii += Math.pow(2,((6-j)%7));
+                }
+            }
+            result.append((char)(ascii));
+
+        }
+        return result.toString();
+    }
+
+  // ★ 2. Integer.parseInt(변수, 진법) 을 이용
+    public String solution2(int quantity, String str) {
+        String result = "";
+        for (int i = 0; i < quantity; i++) {
+            String tmp = str.substring(7*i,7*(i+1))
+                            .replace('#', '1')
+                            .replace('*','0');
+            int num = Integer.parseInt(tmp, 2);
+            result += (char) num;
+        }
+        
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int quan = sc.nextInt();
+        sc.nextLine();
+        String str = sc.next().toUpperCase();
+        if(str.length() > 100) return;
+        System.out.println(t.solution1(quan, str));
+    }
+}
+
+
