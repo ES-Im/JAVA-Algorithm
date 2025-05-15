@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+  // 1. 
+    public ArrayList<Character> solution1(String str) {
+        ArrayList<Character> result = new ArrayList<>();
+        char[] arr = str.toCharArray();
+
+        char target = arr[0];
+        int cnt = 1;
+
+        for (int i = 1; i < arr.length; i++) {
+            if(target == arr[i]) {
+                cnt++;
+            } else {
+                result.add(target);
+                if(cnt != 1) result.add((char)(cnt + '0'));
+                target = arr[i];
+                cnt = 1;
+            }
+        }
+
+        // 마지막 문자 처리
+        if(arr[arr.length-1] != arr[arr.length-2]) {
+            result.add(arr[arr.length-1]);
+        } else {
+            result.add(target);
+            result.add((char)(cnt + '0'));
+        }
+
+        return result;
+    }
+
+// 2. 마지막 문자 처리를 위해 '입력값 + "*"' 이용
+    public ArrayList<Character> solution2(String str) {
+        ArrayList<Character> result = new ArrayList<>();
+        char[] arr = (str+'*').toCharArray();
+
+        char target = arr[0];
+        int cnt = 1;
+
+        for (int i = 1; i < arr.length; i++) {
+            if(target == arr[i]) {
+                cnt++;
+            } else {
+                result.add(target);
+                if(cnt != 1) result.add((char)(cnt + '0'));
+                target = arr[i];
+                cnt = 1;
+            }
+        }
+        
+        return result;
+    }
+// ★ 3. charAt(i) == charAt(i+1) 이용 + 마지막 문자 처리를 위해 '입력값 + "*"' 이용
+    public String solution3(String str) {
+        String result = "";
+        str = str + " ";
+        int cnt = 1;
+        for(int i = 0; i < str.length()-1; i++) {
+            if(str.charAt(i) == str.charAt(i+1)) cnt++;
+            else {
+                result += str.charAt(i);
+                if(cnt>1) result += String.valueOf(cnt);
+                cnt = 1;
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        String str = sc.next().toUpperCase();
+        if(str.length() > 100) return;
+        for (char i : t.solution1(str)) {
+            System.out.print(i);
+        }
+    }
+}
+
+
