@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class Main {
+    public char[] solution1(int[] arr1, int[] arr2) {
+        char[] result = new char[arr1.length];
+        for (int i = 0; i < arr1.length; i++) {
+            if(arr1[i] == arr2[i])  {
+                result[i] ='D';
+            } else if(Math.abs(arr1[i]-arr2[i]) > 1) {
+                result[i] = arr1[i] > arr2[i]? 'B' : 'A';
+            } else {
+                result[i] = arr1[i] > arr2[i]? 'A' : 'B';
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n1 = sc.nextInt();
+        if(n1 > 100000 || n1 < 5) return;
+        sc.nextLine();
+        int[] A = new int[n1];
+        int[] B = new int[n1];
+        for (int i = 0; i < n1; i++) {
+            A[i] = sc.nextInt();
+        }
+        for (int i = 0; i < n1; i++) {
+            B[i] = sc.nextInt();
+        }
+
+        // 출력
+        for (char c : t.solution1(A, B)) {
+            System.out.println(c);
+        }
+    }
+}
+
+
