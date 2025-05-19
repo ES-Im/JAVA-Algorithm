@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public ArrayList<Integer> solution1(int[] arr) {
+        ArrayList<Integer> result = new ArrayList<>();
+        result.add(arr[0]);
+        for (int i = 1; i < arr.length; i++) {
+            if(arr[i-1] < arr[i] ) {
+                result.add(arr[i]);
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n1 = sc.nextInt();
+        sc.nextLine();
+
+        int[] nArr = new int[n1];
+        for (int i = 0; i < n1; i++) {
+            nArr[i] = sc.nextInt();
+        }
+
+        if(n1 > 100 || n1 < 1) return;
+
+        for (Integer i : t.solution1(nArr)) {
+            System.out.print(i + " ");
+        }
+    }
+}
+
+
