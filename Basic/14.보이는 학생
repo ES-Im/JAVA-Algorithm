@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class Main {
+    public int solution1(int[] arr) {
+        int result = 1; // 1 = 첫줄의 학생
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if(max < arr[i] ) {
+                max = arr[i];
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n1 = sc.nextInt();
+        sc.nextLine();
+
+        int[] nArr = new int[n1];
+        for (int i = 0; i < n1; i++) {
+            nArr[i] = sc.nextInt();
+        }
+
+        if(n1 > 100000 || n1 < 5) return;
+
+        System.out.println(t.solution1(nArr));
+    }
+}
+
+
