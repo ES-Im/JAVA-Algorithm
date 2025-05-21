@@ -1,0 +1,31 @@
+// 1. 2부터 N-1 까지 루프를 돌면서 나눠보는 방법 O(n)
+// 2. 에라토스테네스 체 : 2를 순회하면서 2의 배수 삭제
+//                     > 3순회 후 3의 배수 삭제
+//                     > 4스킵(2의배수)
+//                     > 5순회 후 5의 배수 삭제.... → 순회하면서 나눠지는 숫자는 체크가 되고, 다음 순회 대상 숫자가 체크가 안되어있을 경우 해당 숫자를 소수로 봄
+
+import java.util.Scanner;
+
+public class Main {
+    public void solution1(int n) {
+        int answer = 0;
+        int[] arr = new int[n+1];   // 0부터 시작하므로
+        for (int i = 2; i <= n; i++) {  // 0,1 제외
+            if(arr[i] == 0) {
+                answer++;       // 앞에 숫자를 순회했는데도 체크되지 않은 소수들
+                for (int j = i; j <= n; j+=i) {     // 순회하면서 나눠지면 체크
+                    arr[j] = 1;
+                }
+            }
+        }
+        System.out.println(answer);
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if(n < 2 || n > 200000) return;
+        t.solution1(n);
+    }
+}
