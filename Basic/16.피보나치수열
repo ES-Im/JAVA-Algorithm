@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    // 배열 사용 x
+    public void solution1(int len) {
+        int a=1,b=1, c;
+        System.out.print(a + " " + b + " ");
+        for (int i = 2; i < len; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+            System.out.print(" " + c);
+        }
+    }
+    
+    // 배열 사용 o
+    public ArrayList<Integer> solution2(int len) {
+        ArrayList<Integer> result = new ArrayList<>();
+        result.add(1);      result.add(1);
+
+        for (int i = 0; i < len-2; i++) {
+            int front1 = result.get(result.size()-2);
+            int front2 = result.get(result.size()-1);
+            result.add(front1 + front2);
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if(n < 2 || n > 46) return;
+
+        // 출력
+        for (int c : t.solution1(n)) {
+            System.out.print(c + " ");
+        }
+    }
+}
+
+
