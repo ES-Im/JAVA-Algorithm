@@ -1,0 +1,92 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+// 1. 소수가 아닌지 판별 = 단순히 n-1 까지 다 나눠보기
+// ★ solution 메서드의 숫자 뒤집기 알고리즘 
+public class Main1 {
+    public boolean isPrime(int num) {
+        if(num == 1) return false;
+        for (int i = 2; i < num; i++) {
+            if(num % i == 0) return false;
+        }
+        return true;
+    }
+
+    public ArrayList<Integer> solution1(int n, int[] arr) {
+        ArrayList<Integer> result = new ArrayList<>();
+        // ★ 숫자 뒤집기 -> %10와 /10 이용
+        for (int i = 0; i < n; i++) {
+            int tmp = arr[i];   // 뒤집기 전 숫자
+            int res = 0;        // 뒤집어진 숫자
+            while(tmp > 0) {
+               int t = tmp % 10;
+               res = res * 10 + t;
+               tmp = tmp/10;
+            }
+            if(isPrime(res)) result.add(res);
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if(n > 100000) return;
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        for (int i : t.solution1(n, arr)) {
+            System.out.print(i + " ");
+        }
+    }
+}
+
+// 2. 소수인지 아닌지 판별 : 제곱근을 이용 → 제곱근을 기준으로 약수끼리의 곱은 대칭으로 이루어진다
+// [예시] (1x18) (2x9) (3x6) √18(4.242) (6x3) (9x2) (18x1)
+// 그러므로 제곱근 값 이하의 수만 확인하면 된다. 위 예시라면 4이하까지 확인했을 때 나누어 떨어지지 않으면 소수가 아니라는 것
+
+public class Main2 {
+    public void solution2(StringBuilder[] target) {
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = 0; i < target.length; i++) {
+            int num = Integer.parseInt(target[i].toString());
+            boolean isPrime = true;
+            if(num == 2) {
+                isPrime = true;
+            } else if (num <= 1 ||  num % 2 == 0) { // 소수 대상이 아닌 것 제외
+                isPrime = false;
+            } else {
+                for (int j = 3; j <= Math.sqrt(num); j+=2) {
+                    if(num % j == 0) {
+                        isPrime = false;
+                    }
+                }
+            }
+            if(isPrime) result.add(num);
+        }
+
+        // 결과 출력
+        for (Integer i : result) {
+            System.out.print(i + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        if(n > 100000) return;
+        StringBuilder[] target = new StringBuilder[n];
+        for (int i = 0; i < n; i++) {
+            target[i] = new StringBuilder(sc.next()).reverse();
+        }
+        t.solution1(target);
+    }
+}
+
+
