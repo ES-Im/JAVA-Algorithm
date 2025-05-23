@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class Main {
+
+    // 1. Comparator, HashMap이용
+    public void solution1(Integer[] arr) {
+        Integer[] tmp = arr.clone();
+        Arrays.sort(tmp, Comparator.reverseOrder());
+
+        HashMap<Integer, Integer> rankMap = new HashMap<>();
+        int rank = 1;
+        for (int i = 0; i < arr.length; i++) {
+            if(!rankMap.containsKey(tmp[i])) {  // 같은 점수가 없다면 rank 산입
+                rankMap.put(tmp[i], rank);  // 키 : 점수, 밸류 : 등수
+            }
+            rank++;
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(rankMap.get(arr[i]) + " ");
+        }
+    }
+
+    // 2. 2차원 배열 이용
+    public int[] solution2(int n, int[] arr) {
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) {
+            int cnt = 1;
+            for (int j = 0; j < n; j++) {
+                if(arr[j] > arr[i]) cnt++;
+            }
+            result[i] = cnt;
+        }
+        return result;
+    }
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if(n > 100 || n < 3) return;
+
+        Integer[] arr = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        t.solution1(arr);
+    }
+}
+
+
