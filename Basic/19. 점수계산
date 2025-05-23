@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Main {
+    public int solution1(int[] arr) {
+        int result = 0, cnt = 0;
+        for (int i : arr) {
+            if(i == 0) {
+                cnt = 0;
+            } else {
+                cnt++;
+                result += cnt;
+            }
+        }
+        return result;
+    }
+    public static void main(String[] args) {
+        Main t = new Main();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        if(n > 100000) return;
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        System.out.println(t.solution1(arr));
+    }
+}
+
+
