@@ -1,0 +1,46 @@
+// 방법1. Arrays.sort 이용 ▶ 시간복잡도: O((n + m) log(n + m)) 합친뒤 정렬을 처음부터 새로 하므로 시간이 많이 걸림
+
+  int[] combined = new int[arr1.length + arr2.length];  // arr1, arr2를 combined에 복사한 뒤
+  Arrays.sort(combined);
+
+// 방법2. 투포인터 이용 ▶ 시간복잡도: O(n + m) : 두 배열은 이미 정렬되어 있으므로, 정렬이 필요 없음. 두 배열 중 공통인덱스만 투포인터로 비교하여 배열에 넣는 방식.
+
+import java.util.*;
+
+public class Main {
+    static ArrayList<Integer> solution(int[] arr1, int[] arr2) {
+        ArrayList<Integer> result = new ArrayList<>();
+
+        int p1 = 0, p2 = 0;
+        while(p1 < arr1.length && p2 < arr2.length) {
+            if(arr1[p1] < arr2[p2]) {
+                result.add(arr1[p1++]);
+            } else {
+                result.add(arr2[p2++]);
+            }
+        }
+
+        while(p1 < arr1.length) result.add(arr1[p1++]);
+        while(p2 < arr2.length) result.add(arr2[p2++]);
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int row1 = sc.nextInt();
+        int[] arr1 = new int[row1];
+        for (int i = 0; i < row1; i++) {
+            arr1[i] = sc.nextInt();
+        }
+        int row2 = sc.nextInt();
+        int[] arr2 = new int[row2];
+        for (int i = 0; i < row2; i++) {
+            arr2[i] = sc.nextInt();
+        }
+
+        for (int i : solution(arr1, arr2)) {
+            System.out.print(i + " ");
+        }
+    }
+}
