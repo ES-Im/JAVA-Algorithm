@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+    static int solution(int[][] arr, int row, int col) {    // col 학생수, row 시험횟수
+        int result = 0;
+
+        for (int i = 0; i < col; i++) {         // 기준 학생
+            for (int j = i+1; j < col; j++) {   // 기준 학생 외 학생
+                boolean checkMento = true, checkMentee = true;
+//                System.out.printf("\n%d번 vs %d번 = ", i+1, j+1);
+                for (int k = 0; k < row; k++) {     // arr 배열 탐색
+                    int iScore = 0, jScore = 0;
+                    for (int l = 0; l < col; l++) {
+                        if(arr[k][l] == i+1) iScore = l;
+                        if(arr[k][l] == j+1) jScore = l;
+                        if(iScore != 0 && jScore != 0) break;
+                    }
+//                    System.out.printf("\n%d등 | %d등", iScore+1, jScore+1);
+//                    System.out.printf("\n멘토 : %s | 멘티 :  %s", checkMento, checkMentee);
+                    if(iScore > jScore) checkMento = false;
+                    else checkMentee = false;
+                }
+                if( checkMento || checkMentee ) result++;
+//                System.out.println();
+//                System.out.println("결과 = " + result);
+            }
+//            System.out.println();
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int col = sc.nextInt();   // 학생 수
+        int row = sc.nextInt();   // 시험 횟수
+        int[][] arr = new int[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                arr[i][j] = sc.nextInt();
+            }
+        }
+
+        System.out.println(solution(arr, row, col));
+    }
+}
