@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class Main {
+    // 1.  O(N * K) 2중 for문으로 슬라이딩 윈도우 구현
+    static int solution1(int total, int target, int[] record) {
+        int result = 0;
+        int p = 0;
+        while(p+target <= total) {
+            int sum = 0;
+            for (int i = p; i < p + target; i++) {
+                 sum += record[i];
+            }
+            result = Math.max(result, sum);
+            p++;
+        }
+
+        return result;
+    }
+
+    // 2. O(N) 슬라이딩 윈도우 알고리즘 : 윈도우를 옳길 때, 포함되지 않는 인덱스는 삭제(이전 윈도우 중 가장 첫번째 인덱스), 포함되는 인덱스는 추가(새로운 윈도우 중 가장 마지막 인덱스) 하는 식으로 계산
+    static int solution2(int total, int target, int[] record) {
+        int result = 0, sum = 0;
+        // 시작인덱스 부터 시작하는 윈도우 총합으로 시작
+        for (int i = 0; i < target; i++) {
+            sum += record[i];
+        }
+        result = sum;
+
+        for (int i = target; i < total; i++) {
+            sum += (record[i] - record[i-target]);
+            result = Math.max(result, sum);
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int totalDate = sc.nextInt();
+        int targetDate = sc.nextInt();
+        int[] record = new int[totalDate];
+        for (int i = 0; i < totalDate; i++) {
+            record[i] = sc.nextInt();
+        }
+
+        System.out.println(solution2(totalDate, targetDate, record));
+    }
+}
