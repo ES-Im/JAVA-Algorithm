@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class Main {
+
+    // O(n) 투포인터 + 슬라이딩윈도우 알고리즘 이용 → lt ~ rt 까지가 특정 연속의 범위
+    // 1. sum = arr[0]부터 시작 → target과 같지 않으면 rt 증가 및 합계 확인 (rt 증가 - 더하고 - 확인)
+    // 2. 합계가 같거나 크다면, 이전 arr[lt]를 합계에 빼기 및 lt 증가(다음 루프) : rt는 +1 씩 증가 유지
+    static int solution1(int[] arr, int target) {
+        int result = 0;
+        int lt = 0, rt = 0, sum = 0;
+        for (; rt < arr.length; rt++) {
+            sum += arr[rt];
+            if(sum == target) result++;
+            while(sum >= target) {
+                sum -= arr[lt++];
+                if(sum == target) result++;
+            }
+        }
+
+        return result;
+    }
+
+    // 2중 for문 이용 : O(n^2)
+    static int solution2(int[] arr, int target) {
+        int result = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            int sum = 0;
+            for (int j = i; j < arr.length; j++) {
+                sum += arr[j];
+                if(sum == target) {
+                    result++;
+                    break;
+                } else if (sum > target) {
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+   public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int len = sc.nextInt();
+        int target = sc.nextInt();
+        int[] arr = new int[len];
+        for (int i = 0; i < len; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        System.out.println(solution1(arr, target));
+   }
+}
