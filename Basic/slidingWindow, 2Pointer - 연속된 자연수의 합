@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Main {
+    // 1. O(N/2) 슬라이딩 윈도우, 투포인터 활용 & 2개 이상 연속된 수의 합이니 num은 반으로 접으면 됨
+    static int solution(int num) {
+        int result = 0;
+        int rt = 0, lt = 0, sum = 0;
+
+        while(rt <= num/2+1) {
+            sum += rt++;
+
+            while(sum >= num) {
+                sum-= lt++;
+                if(sum == num) result++;
+            }
+        }
+
+        return result;
+    }
+    
+   public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        if(num < 7 || num >= 1000) return;
+
+        System.out.println(solution(num));
+   }
+}
