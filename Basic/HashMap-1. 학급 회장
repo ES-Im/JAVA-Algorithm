@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class Main {
+
+    static char solution(int num, String str) {
+        char result = ' ';
+
+        HashMap<Character, Integer> candidate = new HashMap<>();
+        for (char c : str.toCharArray()) {
+            candidate.put(c, candidate.getOrDefault(c, 0)+1);
+            // map.getOrDefault(key, default) - key의 value를 가져오되, 없다면 default로 설정해주고 반환해.
+        }
+        int max = 0;
+
+        for (Character key : candidate.keySet()) {
+            if(candidate.get(key) > max) {
+                max = candidate.get(key);
+                result = key;
+            }
+        }
+        return result;
+    }
+
+   public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int vote = sc.nextInt();
+        String str = sc.next();
+        System.out.println(solution(vote, str));
+   }
+}
