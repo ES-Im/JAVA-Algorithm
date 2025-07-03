@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Main {
+
+    static void solution(int days, int checkDays, int[] arr) {
+        ArrayList<Integer> result = new ArrayList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        // 초기 윈도우 구성
+        for (int i = 0; i < checkDays; i++) {
+            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+        }
+        result.add(map.size());
+
+        // 슬라이딩 윈도우 이동
+        for (int rt = checkDays; rt < days; rt++) {
+            int out = arr[rt - checkDays]; // 나가는 값
+            map.put(out, map.get(out) - 1);
+            if (map.get(out) == 0) map.remove(out);
+
+            int in = arr[rt]; // 들어오는 값
+            map.put(in, map.getOrDefault(in, 0) + 1);
+
+            result.add(map.size());
+        }
+
+        for (Integer i : result) {
+            System.out.print(i + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int days = sc.nextInt();
+        int checkDays = sc.nextInt();
+        int[] arr = new int[days];
+        for (int i = 0; i < days; i++) {
+            arr[i] = sc.nextInt();
+        }
+        solution(days, checkDays, arr);
+    }
+
+}
