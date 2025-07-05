@@ -1,0 +1,50 @@
+import java.util.*;
+// Hash, sliding window
+public class Main {
+
+    static int solution(String str1, String str2) {
+        int result = 0;
+
+        // str2 → char형으로 MAP key, value에 담기
+        HashMap<Character, Integer> targetMap = new HashMap<>();
+        // targetMap : 아나그램 문자열 map 키로 설정 및 몇개인지 value에 담기
+        for (char c : str2.toCharArray()) {
+            targetMap.put(c, targetMap.getOrDefault(c, 0)+1);
+        }
+
+        char[] strArr = str1.toCharArray();
+
+        // checkMap : 윈도우 이동하면서 변동되는 map
+        HashMap<Character, Integer> checkMap = new HashMap<>();
+        // 초기 윈도우 설정
+        for (int i = 0; i < str2.length(); i++) {
+            char c = strArr[i];
+            if(targetMap.containsKey(c)) {
+                checkMap.put(c, checkMap.getOrDefault(c, 0) + 1);
+            }
+        }
+        if(checkMap.equals(targetMap)) result++;
+
+        int lt = 0, rt = str2.length();
+        // 슬라이딩 윈도우 적용
+        for (; rt < str1.length(); rt++, lt++) {
+            char lChar = strArr[lt];    // 제거 대상
+            char rChar = strArr[rt];    // 삽입 대상
+            if(targetMap.containsKey(lChar)) checkMap.put(lChar, checkMap.getOrDefault(lChar, 0)-1);
+            if(targetMap.containsKey(rChar)) checkMap.put(rChar, checkMap.getOrDefault(rChar, 0)+1);
+
+            if(checkMap.equals(targetMap)) result++;
+        }
+
+        return result;
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str1 = sc.nextLine();
+        String str2 = sc.nextLine();
+        System.out.println(solution(str1, str2));
+    }
+
+}
