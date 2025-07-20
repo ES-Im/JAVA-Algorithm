@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Main {
+
+    static Stack<Character> solution(String str) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : str.toCharArray()) {
+            if(c == ')') {
+                while(stack.pop() != '(');  // stack.size는 pop이 됨에 따라 가변적이게 됨 ▶ 안전하게 while을 사용
+            } else {
+                stack.push(c);
+            }
+        }
+
+        return stack;
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+
+        for (Character c : solution(input)) {
+            System.out.print(c);
+        }
+    }
+
+}
