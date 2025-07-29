@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Main {
+
+    static int solution(char[] arr) {
+        int result = 0;
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            if(arr[i] =='(') stack.push(arr[i]);
+            else {
+                stack.pop();
+                if(arr[i-1] =='(') {
+                    result += stack.size();
+                } else {
+                    result++;   // 잘리고 난뒤의 막대기의 끄트머리 합산
+                }
+            }
+        }
+
+        return result;
+    }
+
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        char[] arr = input.toCharArray();
+        System.out.println(solution(arr));
+    }
+
+}
