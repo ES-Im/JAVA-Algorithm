@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class Main {
+
+    static int solution(char[] arr) {
+        int result = 0;
+        Stack<Integer> stack = new Stack<>();
+
+        for (char c : arr) {
+            if(Character.isDigit(c)) {
+                stack.push(c - '0');
+            } else {
+                int rt = stack.pop();
+                int lt = stack.pop();
+                if(c == '+') {
+                    stack.push(lt + rt);
+                } else if (c == '-') {
+                    stack.push(lt - rt);
+                } else if (c == '*') {
+                    stack.push(lt * rt);
+                } else if (c == '/') {
+                    stack.push(lt / rt);
+                }
+            }
+        }
+
+        return stack.peek();
+    }
+
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        char[] arr = input.toCharArray();
+        System.out.println(solution(arr));
+    }
+
+}
