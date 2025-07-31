@@ -1,0 +1,59 @@
+import java.util.*;
+
+class Patient {
+    int id;
+    int urgentScore;
+
+    public Patient(int id, int urgentScore) {
+        this.id = id;
+        this.urgentScore = urgentScore;
+    }
+}
+
+class Main {
+
+    static int solution(int[] list, int target) {
+        Queue<Patient> queue = new LinkedList<>();
+        for (int i = 0; i < list.length; i++) {
+            queue.offer(new Patient(i, list[i]));
+        }
+
+        int order = 0;
+
+        while(!queue.isEmpty()) {
+            // 환자 우선순위 확인
+            Patient now = queue.poll();
+            for (Patient p : queue) {
+                // 다른 환자가 우선이라면 뒤로 넘기고 끝
+                if(now.urgentScore < p.urgentScore) {
+                    queue.offer(now);
+                    now = null;
+                    break;
+                }
+            }
+
+            // 순서조정이 아니라 환자를 poll만했을 경우 순서++ (만약 poll한 환자가 target일 경우 순서 반환)
+            if(now != null) {
+                order++;
+                if(now.id == target) return order;
+            }
+        }
+        return -1;  // target이 비정상적일시 에러 확인
+    }
+
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[] score = new int[sc.nextInt()];
+        int target = sc.nextInt();
+        for (int i = 0; i < score.length; i++) {
+            score[i] = sc.nextInt();
+        }
+
+        System.out.println(solution(score, target));
+
+        sc.close();
+    }
+
+}
