@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Main {
+
+    static int solution(int ints, int num) {
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 1; i < ints + 1; i++) {
+            queue.offer(i);
+        }
+
+
+        while(queue.size() != 1) {
+            for (int i = 0; i < num-1; i++) {
+                queue.offer(queue.poll());
+            }
+            queue.poll();
+        }
+
+        return queue.peek();
+    }
+
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int howMany = sc.nextInt();
+        int num = sc.nextInt();
+        System.out.println(solution(howMany, num));
+        sc.close();
+    }
+
+}
