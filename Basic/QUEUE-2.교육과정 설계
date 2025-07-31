@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class Main {
+
+    static String solution(String order, String plan) {
+
+        Queue<Character> queue = new LinkedList<>();
+
+        for (char c : order.toCharArray()) {
+            queue.offer(c);
+        }
+
+        for (char c : plan.toCharArray()) {
+
+            if(queue.contains(c)) { // 필수과목이 플랜에 있지만
+                if(queue.poll() != c) return "NO";  // 순서에 맞지 않으면 NO
+            }
+        }
+
+        if(!queue.isEmpty()) return "NO";   // 필수과목 누락시 NO
+
+
+        return "YES";
+    }
+
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String order = sc.nextLine();
+        String plan = sc.nextLine();
+        System.out.println(solution(order, plan));
+        sc.close();
+    }
+
+}
