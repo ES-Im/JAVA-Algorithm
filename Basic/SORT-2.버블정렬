@@ -1,0 +1,57 @@
+import java.util.*;
+
+class Main {
+
+    // 기본
+    static int[] solution(int[] list) {
+        for (int i = 0; i < list.length-1; i++) {
+            for (int j = 0; j < list.length-i-1; j++) {
+                if(list[j] > list[j+1]) {
+                    int tmp = list[j];
+                    list[j] = list[j+1];
+                    list[j+1] = tmp;
+                }
+            }
+        }
+
+        return list;
+    }
+
+
+    // 변형 (버블정렬 되면서 비교군을 하나씩 없애는 end이용)
+    static int[] solution(int[] list) {
+
+        int end = list.length;
+
+        while(end > 1) {
+            int rt = 1;
+            for (int lt = 0; rt < end; lt++) {
+                if(list[lt] > list[rt]) {
+                    int tmp = list[lt];
+                    list[lt] = list[rt];
+                    list[rt] = tmp;
+                }
+                rt++;
+            }
+            end--;
+        }
+
+        return list;
+    }
+
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        int[] ints = new int[num];
+        for (int i = 0; i < num; i++) {
+            ints[i] = sc.nextInt();
+        }
+        for (int i : solution(ints)) {
+            System.out.print(i + " ");
+        }
+        sc.close();
+    }
+
+}
