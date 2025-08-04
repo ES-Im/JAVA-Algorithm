@@ -1,0 +1,36 @@
+import java.util.*;
+
+class Main {
+
+    static int[] solution(int[] list) {
+        for (int i = 0; i < list.length - 1; i++) {
+            int index = i;
+            for (int j = i+1; j < list.length; j++) {
+                if( list[i] > list[j] ) {
+                    index = j;
+                }
+            }
+            int tmp = list[i];
+            list[i] = list[index];
+            list[index] = tmp;
+        }
+
+        return list;
+    }
+
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        int[] ints = new int[num];
+        for (int i = 0; i < num; i++) {
+            ints[i] = sc.nextInt();
+        }
+        for (int i : solution(ints)) {
+            System.out.printf("%d ", i);
+        }
+        sc.close();
+    }
+
+}
