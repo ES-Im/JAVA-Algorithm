@@ -1,0 +1,45 @@
+import java.util.*;
+
+class Main {
+
+    // while 이용
+    static int[] solution1(int[] list) {
+        for (int i = 1; i < list.length; i++) {
+            int tmp = list[i];
+            int j = i-1;
+            while(j>=0 && list[j] > tmp) {
+                list[j+1] = list[j];
+                j--;
+            }
+            list[j+1] = tmp;
+        }
+        return list;
+    }
+    
+    // for 이용
+    static int[] solution(int[] list) {
+        for (int i = 1; i < list.length; i++) {
+            int tmp = list[i], j;
+            for (j = i-1; j >= 0; j--) {
+                if(list[j] > tmp) list[j+1] = list[j];
+                else break;
+            }
+            list[j+1] = tmp;
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        int[] ints = new int[num];
+        for (int i = 0; i < num; i++) {
+            ints[i] = sc.nextInt();
+        }
+        for (int i : solution(ints)) {
+            System.out.print(i + " ");
+        }
+        sc.close();
+    }
+
+}
