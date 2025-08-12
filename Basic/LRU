@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class Main {
+
+    // 1. Deque 이용
+    static Deque<Integer> solution(int memory, int len, int[] arr) {
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < len; i++) {
+            if(deque.contains(arr[i])) deque.removeFirstOccurrence(arr[i]);
+            deque.addFirst(arr[i]);
+            if(deque.size() > memory) deque.removeLast();
+        }
+
+        return deque;
+    }
+
+    // 2. 배열 이용
+    static int[] solution(int memory, int len, int[] arr) {
+        int[] cache = new int[memory];
+        for (int x : arr) {
+            int index = -1;
+            for (int i = 0; i < memory; i++) if(x == cache[i]) index = i;  // 캐시에 있을 경우
+            if(index == -1) {  // 캐시에 없을 경우
+                for (int i = memory-1; i >= 1; i--) {  // 앞으로 땡기기
+                    cache[i] = cache[i-1];
+                }
+            } else {
+                for (int i = index; i >= 1; i--) {  // i 이전에 들어온거 땡기기
+                    cache[i] = cache[i-1];
+                }
+            }
+            cache[0] = x;  // 최근에 들어온거 입력
+        }
+
+        return cache;
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int memory = sc.nextInt();
+        int len = sc.nextInt();
+        int[] arr = new int[len];
+        for (int i = 0; i < len; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        for (int i : solution(memory,len, arr)) {
+            System.out.printf("%d ", i);
+        }
+    }
+}
