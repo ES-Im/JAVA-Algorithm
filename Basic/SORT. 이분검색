@@ -1,0 +1,44 @@
+/* 이분 검색(binary search)
+    - 배열은 정렬이 되어있어야한다.
+    - 순차 검색(앞에서부터 하나씩 보는 것)는 시간복잡도가 O(n)
+    - 이분 검색은 mid=(lt+rt)/2 를 이용하고 arr[mid]값과 찾고자하는 값을 비교하여
+        - 같다면 target 인덱스는 'mid+1'
+        - arr[mid]가 더 크다면, lt = mid + 1로
+        - arr[mid]가 더 작다면, rt = mid - 1로
+      범위를 반씩 줄어들이면서 시간복잡도가 O(log n) 이 된다.
+*/
+
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+    static int solution(int len, int target, int[] arr) {
+        int result = 0;
+        Arrays.sort(arr);
+        int rt = len - 1, lt = 0;
+
+        while(result == 0) {
+            int mid = (lt+rt) / 2;
+
+            if(arr[mid] == target) result = mid+1;
+            else if(arr[mid] > target) rt = mid-1;
+            else lt = mid+1;
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int len = sc.nextInt();
+        int target = sc.nextInt();
+        int[] arr = new int[len];
+        for (int i = 0; i < len; i++) {
+            arr[i]= sc.nextInt();
+        }
+
+        System.out.println(solution(len, target, arr));
+    }
+}
