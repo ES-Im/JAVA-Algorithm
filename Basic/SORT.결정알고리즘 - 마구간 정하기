@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class Main {
+
+    static int allow(int[] arr, int distance) {
+        int cnt = 1;        // 첫 번째 마구간에 말 배치
+        int ep = arr[0];    // 마지막으로 말을 둔 위치
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] - ep >= distance) {
+                cnt++;
+                ep = arr[i];
+            }
+        }
+        return cnt;
+    }
+
+    static int solution(int stable, int horse, int[] arr) {
+        int result = 0;
+        Arrays.sort(arr);
+        int lt = 1;
+        int rt = arr[stable - 1] - arr[0]; // 최대 거리
+
+        while (lt <= rt) {
+            int mid = (lt + rt) / 2;
+            if (allow(arr, mid) >= horse) {
+                result = mid;
+                lt = mid + 1;
+            } else {
+                rt = mid - 1;
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int stable = sc.nextInt(); // 마구간 수
+        int horse = sc.nextInt();  // 말 수
+        int[] coordinate = new int[stable];
+        for (int i = 0; i < stable; i++) {
+            coordinate[i] = sc.nextInt();
+        }
+
+        System.out.println(solution(stable, horse, coordinate));
+    }
+}
