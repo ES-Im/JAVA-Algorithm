@@ -41,7 +41,7 @@ public class Main {
     }
 }
 
-// 4. 피보나치 수열
+// 4. 피보나치 수열 : 재귀가 호출될때마다 스택프레임이 만들어지고 연산이 됌 -> 무거움
 
 public class Main {
 
@@ -57,11 +57,13 @@ public class Main {
     }
 }
 
-// 4-1. static 배열을 사용하여 피보나치 배열 개선
+// 4-1. static 배열을 사용하여 피보나치 배열 개선 : 메모리제이션을 활용, 이미 연산된 스택을 호출
 public class Main {
     static int[] fibo;
 
     static int DFS(int n) {
+        if(fibo[n] > 0) return fibo[n];
+
         if(n == 1) return fibo[n] = 1;            // 첫번째 항
         else if (n == 2) return fibo[n] = 1;      // 두번째 항
         else return fibo[n] = DFS(n-2) + DFS(n-1);    // 세번째 ~ (앞에앞에 + 앞에)
