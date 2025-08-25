@@ -1,0 +1,41 @@
+// DFS - Tree 말단 노드 까지의 가장 짧은 경로(간선의 수)
+// 1             - 루트 노드 : Level 0
+// ├─  2         - Level 1
+// │   ├─ 4      - Level 2
+// │   └─ 5      - Level 2
+// └─  3         - Level 1      - 말단 노드 : Level 1
+
+
+class Node {
+    int data;
+    Node lt, rt;
+
+    public Node(int val) {
+        this.data = val;
+        this.lt = this.rt = null;
+    }
+}
+
+
+public class Main {
+    Node root;
+
+    public int DFS(int level, Node root) {
+        if(root.lt == null && root.rt == null) return level;
+        else return Math.min(DFS(level+1, root.lt)
+                            , DFS(level+1, root.rt));
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+
+        t.root = new Node(1);
+        t.root.lt = new Node(2);
+        t.root.rt = new Node(3);
+        t.root.lt.lt = new Node(4);
+        t.root.lt.rt = new Node(5);
+
+        System.out.println(t.DFS(0, t.root));
+    }
+
+}
