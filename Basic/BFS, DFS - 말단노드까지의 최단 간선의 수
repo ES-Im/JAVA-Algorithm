@@ -1,0 +1,119 @@
+1. BFS와 DFS의 근본적인 차이
+
+ - BFS (너비 우선 탐색)
+    · 루트에서 가까운 레벨(=짧은 거리)부터 차례대로 탐색
+    · 레벨 단위 탐색이라서, 처음 만나는 말단 노드가 무조건 최단 거리임
+
+ - DFS (깊이 우선 탐색)
+    · 루트에서 한쪽 끝까지 쭉 내려간 다음, 다시 백트래킹하면서 다른 경로 탐색
+    · 모든 말단 노드를 다 확인해야만 최단 거리를 확정할 수 있음
+
+▶ "최단" 이라는 키워드가 나오면 무조건 레벨탐색(BFS) 알고리즘으로 풀면 된다.
+
+
+
+
+// BFS - Tree 말단 노드 까지의 가장 짧은 경로(간선의 수) ★ 레벨탐색이 정석
+// 1             - 루트 노드 : Level 0
+// ├─  2         - Level 1
+// │   ├─ 4      - Level 2
+// │   └─ 5      - Level 2
+// └─  3         - Level 1
+//     └─ 6      - Level 2
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Node {
+    int data;
+    Node lt, rt;
+
+    public Node(int val) {
+        this.data = val;
+        this.lt = this.rt = null;
+    }
+}
+
+
+public class Main {
+    Node root;
+
+    public int BFS(int level, Node root) {
+        Queue<Node> Q = new LinkedList<>();
+        Q.offer(root);
+        int L = 0;
+        while(!Q.isEmpty()) {
+            int len = Q.size();
+            for (int i = 0; i < len; i++) {
+                Node cur = Q.poll();
+                if(cur.lt == null && cur.rt == null) return L;
+                if(cur.lt != null) Q.offer(cur.lt);
+                if(cur.rt != null) Q.offer(cur.rt);
+            }
+            L++;
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+
+        t.root = new Node(1);
+        t.root.lt = new Node(2);
+        t.root.rt = new Node(3);
+        t.root.lt.lt = new Node(4);
+        t.root.lt.rt = new Node(5);
+        t.root.rt.lt = new Node(6);
+
+        System.out.println(t.BFS(0, t.root));
+    }
+
+}
+
+
+
+
+// DFS - Tree 말단 노드 까지의 가장 짧은 경로(간선의 수)
+// 1             - 루트 노드 : Level 0
+// ├─  2         - Level 1
+// │   ├─ 4      - Level 2
+// │   └─ 5      - Level 2
+// └─  3         - Level 1      - 말단 노드 : Level 1
+
+
+class Node {
+    int data;
+    Node lt, rt;
+
+    public Node(int val) {
+        this.data = val;
+        this.lt = this.rt = null;
+    }
+}
+
+
+public class Main {
+    Node root;
+
+    public int DFS(int level, Node root) {
+        if(root.lt == null && root.rt == null) return level;
+        else return Math.min(DFS(level+1, root.lt)
+                            , DFS(level+1, root.rt));
+    }
+
+    public static void main(String[] args) {
+        Main t = new Main();
+
+        t.root = new Node(1);
+        t.root.lt = new Node(2);
+        t.root.rt = new Node(3);
+        t.root.lt.lt = new Node(4);
+        t.root.lt.rt = new Node(5);
+
+        System.out.println(t.DFS(0, t.root));
+    }
+
+}
+
+
