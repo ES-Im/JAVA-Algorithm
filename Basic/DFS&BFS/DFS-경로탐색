@@ -1,0 +1,63 @@
+/*  [인접행렬] 1→(마지막노드))로 가는 가지 수는?
+         1 2 3 4 5
+         ----------
+    1 |  0 1 1 1 0
+    2 |  1 0 1 0 1
+    3 |  0 0 0 1 0
+    4 |  0 1 0 0 1
+    5 |  0 0 0 0 0
+    ※ 주의 : 경로 탐색은 한번 방문한 정점은 다시는 방문하지 않는다.
+
+5 9
+1 2
+1 3
+1 4
+2 1
+2 3
+2 5
+3 4
+4 2
+4 5
+ */
+
+import java.util.Scanner;
+
+public class Main {
+    static int N, W, answer = 0;
+    static int[][] matrix ;
+    static int[] ch;
+
+    void DFS(int num) {
+        if(num == N) answer++;
+        else {
+            for (int i = 1; i <= N; i++) {
+                if(matrix[num][i] == 1 && ch[i] == 0) {
+                    ch[i] = 1;
+                    DFS(i);
+                    ch[i] = 0;  // 백트래킹 : DFS 후 ch[i] = 0 으로 돌려놓아 다른 경로에서 재사용
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        N = sc.nextInt();   // 정점의 수
+        W = sc.nextInt();   // 간선의 수
+        ch = new int[N + 1];
+        matrix = new int[N + 1][N + 1];
+
+        for (int i = 0; i < W; i++) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            matrix[x][y] = 1;
+        }
+        ch[1] = 1;
+
+        Main T = new Main();
+        T.DFS(1);
+        System.out.println(answer);
+
+    }
+}
