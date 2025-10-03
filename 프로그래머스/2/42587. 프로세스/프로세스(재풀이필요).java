@@ -1,3 +1,5 @@
+// comparable과 priorityQueue를 연습하려고 난해한 코드가 된 것 같음. 단순 que로만으로도 해결가능 할 것 같으니 다시 해볼 것
+
 import java.util.*;
 
 class Solution {
