@@ -10,9 +10,7 @@ public class Solution {
             else stack.add(arr[i]);
         }
         
-        int i = 0;
         int[] answer = stack.stream().mapToInt(Integer::intValue).toArray();
-            
         
         return answer;
     }
