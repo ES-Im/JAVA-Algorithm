@@ -18,7 +18,7 @@ class Solution {
         if(checkIdx[x] != -1) return checkIdx[x];    
         
         
-        checkIdx[x] = DFS(x-1) + DFS(x-2);
-        return checkIdx[x] % 1234567;
+        checkIdx[x] = (DFS(x-1) + DFS(x-2)) % 1234567;    // 오버플로 방지(모듈러 연산)
+        return checkIdx[x];
     }
 }
