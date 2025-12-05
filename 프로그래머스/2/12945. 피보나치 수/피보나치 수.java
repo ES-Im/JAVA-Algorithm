@@ -3,12 +3,16 @@ class Solution {
     static int[] checkN;
     
     public static int DFS(int n) {
-        if(checkN[n] > 0) return checkN[n];
-        if(n == 0) return checkN[n] = 0;
-        if(n == 1) return checkN[n] = 1;
-        else if(n == 2) return checkN[n] = 1;
-        else return checkN[n] = (DFS(n-2) + DFS(n-1)) % 1234567;
+        
+        if(checkN[n] != 0) return checkN[n];
+        
+        if(n == 0 || n == 1) return checkN[n] = n;
+        
+        return checkN[n] = (DFS(n-1) + DFS(n-2)) % 1234567;
     }
+    
+            
+        
     
     public int solution(int n) {
         
