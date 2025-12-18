@@ -6,14 +6,17 @@ class Solution {
         Stack<Character> stack = new Stack<>();
         
         for(char c : s.toCharArray()) {
-            if(c == '(') stack.push(c);
+            
             if(c == ')') {
                 if(stack.isEmpty()) return false;
-                else stack.pop();
-            } 
-        }
+                stack.pop();
+            } else {
+                stack.push(c);
+            }
             
-        if(stack.size() != 0) answer = false;
+        }
+        
+        if(stack.size() > 0) answer = false;
 
         return answer;
     }
