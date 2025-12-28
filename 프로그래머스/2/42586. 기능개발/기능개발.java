@@ -1,6 +1,37 @@
 import java.util.*;
 
 class Solution {
+    public int[] solution(int[] progresses, int[] speeds) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        Queue<Integer> que = new LinkedList<>();
+        
+        for(int i = 0; i < progresses.length; i++) {
+            
+            int day = remainDays(progresses[i], speeds[i]);
+            
+            if(que.isEmpty() || que.peek() >= day) {
+                que.offer(day);
+            } else {
+                arr.add(que.size());
+                que.clear();
+                que.offer(day);
+            }
+            
+        }
+        
+        arr.add(que.size());
+        
+        
+        return arr.stream().mapToInt(Integer::intValue).toArray();
+    }
+    
+    public int remainDays(int progress, int speed) {
+        return (int) Math.ceil( (100-progress) / (double) speed ); 
+    }
+}
+
+
+/* 이전 코드
     public ArrayList<Integer> solution(int[] progresses, int[] speeds) {
         ArrayList<Integer> answer = new ArrayList<>();
         
@@ -26,4 +57,4 @@ class Solution {
         
         return answer;
     }
-}
+*/
